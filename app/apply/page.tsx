@@ -1,5 +1,7 @@
 'use client';
 
+export const dynamic = 'force-dynamic'; // <-- Add this line
+
 import { useState, useRef, ChangeEvent, FormEvent, KeyboardEvent, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Upload, User, Mail, Phone, Briefcase, FileText, AlertCircle, CheckCircle, X, Tag, Loader2 } from 'lucide-react';
