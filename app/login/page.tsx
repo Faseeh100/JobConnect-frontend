@@ -40,65 +40,125 @@ export default function LoginPage() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setApiError('');
+  // const handleSubmit = async (e: FormEvent) => {
+  //   e.preventDefault();
+  //   setApiError('');
     
-    if (!validateForm()) {
+  //   if (!validateForm()) {
+  //     return;
+  //   }
+
+  //   setIsLoading(true);
+
+  //   try {
+  //     const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/users/login`, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(formData),
+  //     });
+
+  //     const data = await response.json();
+
+  //     if (!data.success) {
+  //       setApiError(data.message || 'Login failed');
+  //       return;
+  //     }
+
+  //     // Store token and user data
+  //     localStorage.setItem('token', data.token);
+  //     localStorage.setItem('user', JSON.stringify(data.user));
+
+  //     // Dispatch auth change event for Header component
+  //     window.dispatchEvent(new Event('authChange'));
+
+  //     // Check if there's a redirect job ID from apply button
+  //     const redirectJobId = sessionStorage.getItem('redirectJobId');
+      
+  //     // Clear the redirect job ID
+  //     if (redirectJobId) {
+  //       sessionStorage.removeItem('redirectJobId');
+  //     }
+
+  //     // Redirect based on role and redirectJobId
+  //     if (data.user.role === 'admin') {
+  //       router.push('/admin');
+  //     } else if (redirectJobId) {
+  //       // If user was trying to apply for a specific job, redirect to apply page
+  //       router.push(`/apply?jobId=${redirectJobId}`);
+  //     } else {
+  //       // Default redirect for regular users
+  //       router.push('/postings');
+  //     }
+
+  //   } catch (error) {
+  //     console.error('Login error:', error);
+  //     setApiError('Network error. Please try again.');
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
+  const handleSubmit = async (e: FormEvent) => {
+  e.preventDefault();
+  setApiError('');
+
+  if (!validateForm()) {
+    return;
+  }
+
+  setIsLoading(true);
+
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await response.json();
+
+    if (!data.success) {
+      setApiError(data.message || 'Login failed');
       return;
     }
 
-    setIsLoading(true);
+    // Store token and user data
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('user', JSON.stringify(data.user));
 
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/users/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+    // Dispatch auth change event for Header component
+    window.dispatchEvent(new Event('authChange'));
 
-      const data = await response.json();
+    // --- NEW REDIRECT LOGIC BASED ON EMAIL ---
+    const user = data.user; // Contains {id, name, email, ...}
 
-      if (!data.success) {
-        setApiError(data.message || 'Login failed');
-        return;
-      }
-
-      // Store token and user data
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('user', JSON.stringify(data.user));
-
-      // Dispatch auth change event for Header component
-      window.dispatchEvent(new Event('authChange'));
-
-      // Check if there's a redirect job ID from apply button
+    if (user.email === 'admin@email.com') {
+      // For admin email, go to admin page
+      router.push('/admin');
+    } else {
+      // For everyone else (candidates), check for a saved job ID
       const redirectJobId = sessionStorage.getItem('redirectJobId');
-      
-      // Clear the redirect job ID
       if (redirectJobId) {
         sessionStorage.removeItem('redirectJobId');
-      }
-
-      // Redirect based on role and redirectJobId
-      if (data.user.role === 'admin') {
-        router.push('/admin');
-      } else if (redirectJobId) {
-        // If user was trying to apply for a specific job, redirect to apply page
         router.push(`/apply?jobId=${redirectJobId}`);
       } else {
-        // Default redirect for regular users
+        // Default for candidates
         router.push('/postings');
       }
-
-    } catch (error) {
-      console.error('Login error:', error);
-      setApiError('Network error. Please try again.');
-    } finally {
-      setIsLoading(false);
     }
-  };
+    // --- END OF NEW LOGIC ---
+
+  } catch (error) {
+    console.error('Login error:', error);
+    setApiError('Network error. Please try again.');
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-gray-50 to-gray-100 pt-16">
