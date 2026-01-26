@@ -267,7 +267,7 @@ export default function AdminApplicantsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen">
       <div className="w-full">
         {/* Header */}
         <div className="mb-6">

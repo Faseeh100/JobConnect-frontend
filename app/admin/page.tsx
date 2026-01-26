@@ -120,7 +120,7 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen">
       {/* Admin Header */}
       <div className="bg-white shadow-md">
         <div className="container mx-auto px-5 py-4">
