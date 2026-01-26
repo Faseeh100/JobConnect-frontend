@@ -87,6 +87,7 @@ export default function PostingsPage() {
           'Content-Type': 'application/json',
           ...(token && { 'Authorization': `Bearer ${token}` })
         },
+        credentials: 'include'
       });
 
       if (!response.ok) {
