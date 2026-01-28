@@ -167,6 +167,13 @@ export default function AdminSettingsPage() {
     return Object.keys(newErrors).length === 0;
   };
 
+  const securityTips = [
+    "Use a strong, unique password",
+    "Never share your login credentials",
+    "Log out when using shared devices",
+    "Regularly update your password",
+  ];
+
   const updateProfile = async (e: FormEvent) => {
     e.preventDefault();
     
@@ -610,43 +617,17 @@ export default function AdminSettingsPage() {
             {/* Security Tips */}
             <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
               <h3 className="text-lg font-bold text-gray-800 mb-4">Security Tips</h3>
-              
               <ul className="space-y-3">
-                <li className="flex items-start">
-                  <div className="bg-blue-100 p-1 rounded mr-3 mt-0.5">
-                    <Shield size={14} className="text-blue-600" />
-                  </div>
-                  <span className="text-sm text-gray-700">
-                    Use a strong, unique password
-                  </span>
-                </li>
-                
-                <li className="flex items-start">
-                  <div className="bg-blue-100 p-1 rounded mr-3 mt-0.5">
-                    <Shield size={14} className="text-blue-600" />
-                  </div>
-                  <span className="text-sm text-gray-700">
-                    Never share your login credentials
-                  </span>
-                </li>
-                
-                <li className="flex items-start">
-                  <div className="bg-blue-100 p-1 rounded mr-3 mt-0.5">
-                    <Shield size={14} className="text-blue-600" />
-                  </div>
-                  <span className="text-sm text-gray-700">
-                    Log out when using shared devices
-                  </span>
-                </li>
-                
-                <li className="flex items-start">
-                  <div className="bg-blue-100 p-1 rounded mr-3 mt-0.5">
-                    <Shield size={14} className="text-blue-600" />
-                  </div>
-                  <span className="text-sm text-gray-700">
-                    Regularly update your password
-                  </span>
-                </li>
+                {securityTips.map((tip, index) => (
+                  <li key={index} className="flex items-start">
+                    <div className="bg-blue-100 p-1 rounded mr-3 mt-0.5">
+                      <Shield size={14} className="text-blue-600" />
+                    </div>
+                    <span className="text-sm text-gray-700">
+                      {tip}
+                    </span>
+                  </li>
+                ))}
               </ul>
             </div>
 
