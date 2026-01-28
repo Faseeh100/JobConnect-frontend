@@ -456,7 +456,13 @@ export default function PostingsPage() {
           )}
 
           <div className="p-4 md:p-8">
-            {selectedJob ? (
+            {loadingJobSwitch ? (
+              <div className="flex flex-col items-center justify-center h-40">
+                <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mb-4"></div>
+                <p className="text-gray-600 font-medium">Loading job details...</p>
+                <p className="text-gray-500 text-sm mt-1">Please wait a moment</p>
+              </div>
+            ) : selectedJob ? (
               <div>
                 {/* Job Header */}
                 <div className="mb-8">
@@ -474,13 +480,13 @@ export default function PostingsPage() {
                   </div>
                 </div>
 
-                {loadingJobSwitch && (
+                {/* {loadingJobSwitch && (
                   <div className="flex flex-col items-center justify-center h-40">
                     <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mb-4"></div>
                     <p className="text-gray-600 font-medium">Loading job details...</p>
                     <p className="text-gray-500 text-sm mt-1">Please wait a moment</p>
                   </div>
-                )}
+                )} */}
 
                 {/* Job Meta Info */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8 pb-6 border-b border-gray-200">
