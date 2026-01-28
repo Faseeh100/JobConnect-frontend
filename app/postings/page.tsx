@@ -178,16 +178,20 @@ export default function PostingsPage() {
     fetchJobs();
   }, [router]);
 
+
   const handleJobSelect = (job: Job) => {
+    // Don't load if clicking the same job
     if (selectedJob?.id === job.id) return;
     setLoadingJobSwitch(true);
   
+    if (isMobile) {
+      setSidebarOpen(false);
+    }
+  
+    setSelectedJob(job);
+  
     setTimeout(() => {
-      setSelectedJob(job);
       setLoadingJobSwitch(false);
-      if (isMobile) {
-        setSidebarOpen(false);
-      }
     }, 1000);
   };
 
