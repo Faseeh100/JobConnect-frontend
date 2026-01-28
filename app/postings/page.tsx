@@ -505,15 +505,6 @@ export default function PostingsPage() {
                   </div>
                 </div>
 
-                {/* Loading Spinner for Job Switching */}
-                {/* {loadingJobSwitch && (
-                  <div className="flex flex-col items-center justify-center h-80">
-                    <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mb-4"></div>
-                    <p className="text-gray-600 font-medium">Loading job details...</p>
-                    <p className="text-gray-500 text-sm mt-1">Please wait a moment</p>
-                  </div>
-                )} */}
-
                 {/* Job Description */}
                 <div className="mb-8">
                   <h2 className="text-xl font-semibold text-gray-800 mb-4">Job Description</h2>
