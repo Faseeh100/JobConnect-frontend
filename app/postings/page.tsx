@@ -40,6 +40,7 @@ export default function PostingsPage() {
   const [applicationStatuses, setApplicationStatuses] = useState<Record<number, ApplicationStatus>>({});
   const [isMobile, setIsMobile] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [loadingJobSwitch, setLoadingJobSwitch] = useState(false);
 
   // Check screen size
   useEffect(() => {
@@ -123,7 +124,7 @@ export default function PostingsPage() {
       const token = localStorage.getItem('token');
       
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/jobs/${jobId}/application-status?email=${encodeURIComponent(userEmail)}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/jobs/${jobId}/application-status?email=${encodeURIComponent(userEmail)}`,
         {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -178,12 +179,28 @@ export default function PostingsPage() {
   }, [router]);
 
   // Handle job selection (also closes sidebar on mobile)
+  // const handleJobSelect = (job: Job) => {
+  //   setSelectedJob(job);
+  //   if (isMobile) {
+  //     setSidebarOpen(false);
+  //   }
+  // };
+
   const handleJobSelect = (job: Job) => {
+  // Don't load if clicking the same job
+  if (selectedJob?.id === job.id) return;
+  
+  setLoadingJobSwitch(true);
+  
+  // 1-second delay before showing the new job
+  setTimeout(() => {
     setSelectedJob(job);
+    setLoadingJobSwitch(false);
     if (isMobile) {
       setSidebarOpen(false);
     }
-  };
+  }, 1000);
+};
 
   // Handle apply button click - redirect to login if not logged in
   const handleApplyClick = () => {
@@ -488,6 +505,15 @@ export default function PostingsPage() {
                     </div>
                   </div>
                 </div>
+
+                {/* Loading Spinner for Job Switching */}
+                {loadingJobSwitch && (
+                  <div className="flex flex-col items-center justify-center h-96">
+                    <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mb-4"></div>
+                    <p className="text-gray-600 font-medium">Loading job details...</p>
+                    <p className="text-gray-500 text-sm mt-1">Please wait a moment</p>
+                  </div>
+                )}
 
                 {/* Job Description */}
                 <div className="mb-8">
