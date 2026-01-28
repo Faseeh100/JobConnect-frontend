@@ -178,29 +178,18 @@ export default function PostingsPage() {
     fetchJobs();
   }, [router]);
 
-  // Handle job selection (also closes sidebar on mobile)
-  // const handleJobSelect = (job: Job) => {
-  //   setSelectedJob(job);
-  //   if (isMobile) {
-  //     setSidebarOpen(false);
-  //   }
-  // };
-
   const handleJobSelect = (job: Job) => {
-  // Don't load if clicking the same job
-  if (selectedJob?.id === job.id) return;
+    if (selectedJob?.id === job.id) return;
+    setLoadingJobSwitch(true);
   
-  setLoadingJobSwitch(true);
-  
-  // 1-second delay before showing the new job
-  setTimeout(() => {
-    setSelectedJob(job);
-    setLoadingJobSwitch(false);
-    if (isMobile) {
-      setSidebarOpen(false);
-    }
-  }, 1000);
-};
+    setTimeout(() => {
+      setSelectedJob(job);
+      setLoadingJobSwitch(false);
+      if (isMobile) {
+        setSidebarOpen(false);
+      }
+    }, 1000);
+  };
 
   // Handle apply button click - redirect to login if not logged in
   const handleApplyClick = () => {
@@ -508,7 +497,7 @@ export default function PostingsPage() {
 
                 {/* Loading Spinner for Job Switching */}
                 {loadingJobSwitch && (
-                  <div className="flex flex-col items-center justify-center h-96">
+                  <div className="flex flex-col items-center justify-center h-80">
                     <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mb-4"></div>
                     <p className="text-gray-600 font-medium">Loading job details...</p>
                     <p className="text-gray-500 text-sm mt-1">Please wait a moment</p>
