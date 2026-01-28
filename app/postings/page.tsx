@@ -474,6 +474,14 @@ export default function PostingsPage() {
                   </div>
                 </div>
 
+                {loadingJobSwitch && (
+                  <div className="flex flex-col items-center justify-center h-40">
+                    <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mb-4"></div>
+                    <p className="text-gray-600 font-medium">Loading job details...</p>
+                    <p className="text-gray-500 text-sm mt-1">Please wait a moment</p>
+                  </div>
+                )}
+
                 {/* Job Meta Info */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8 pb-6 border-b border-gray-200">
                   <div className="flex items-center bg-gray-50 px-4 py-3 rounded-lg">
@@ -500,13 +508,13 @@ export default function PostingsPage() {
                 </div>
 
                 {/* Loading Spinner for Job Switching */}
-                {loadingJobSwitch && (
+                {/* {loadingJobSwitch && (
                   <div className="flex flex-col items-center justify-center h-80">
                     <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mb-4"></div>
                     <p className="text-gray-600 font-medium">Loading job details...</p>
                     <p className="text-gray-500 text-sm mt-1">Please wait a moment</p>
                   </div>
-                )}
+                )} */}
 
                 {/* Job Description */}
                 <div className="mb-8">
