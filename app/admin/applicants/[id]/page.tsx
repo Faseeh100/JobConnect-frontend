@@ -240,89 +240,6 @@ export default function ApplicantProfilePage() {
   };
 
 
-//   const fetchAIAnalysis = async (applicantId: string, jobId: number) => {
-//   try {
-//     setAiLoading(true);
-//     setAiError('');
-    
-//     const token = localStorage.getItem('token');
-//     if (!token) {
-//       throw new Error('Authentication required');
-//     }
-
-//     console.log(`[AI] Requesting analysis for applicant ${applicantId}, job ${jobId}`);
-    
-//     const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/applications/${applicantId}/analyze`, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//         'Authorization': `Bearer ${token}`
-//       },
-//       body: JSON.stringify({
-//         job_id: jobId,
-//         analyze_skills: true,
-//         include_insights: true
-//       })
-//     });
-
-//     if (!response.ok) {
-//       const errorText = await response.text();
-//       throw new Error(`AI analysis failed: ${response.status} - ${errorText}`);
-//     }
-
-//     const result = await response.json();
-    
-//     if (!result.success) {
-//       throw new Error(result.message || 'AI analysis failed');
-//     }
-
-//     console.log('[AI] Analysis received:', result.data);
-    
-//     // After getting AI data, calculate percentage yourself
-// if (result.data?.skillMatch?.matches) {
-//   const aiMatches = result.data.skillMatch.matches as AIMatch[];
-//   const totalJobSkills = result.data.skillMatch.jobSkills?.total || 0;
-  
-//   if (totalJobSkills > 0) {
-//     // Count matches with confidence > 0.5
-//     const goodMatches = aiMatches.filter((m: AIMatch) => m.confidence > 0.5).length;
-//     const calculatedPercentage = Math.round((goodMatches / totalJobSkills) * 100);
-    
-//     console.log(`[AI] Calculated ${calculatedPercentage}% from ${goodMatches}/${totalJobSkills} matches`);
-    
-//     // Optional: Update chart based on AI matches
-//     const missingCount = totalJobSkills - goodMatches;
-//     const extraCount = result.data.skillMatch.applicantSkills?.extra || 0;
-    
-//     updateChartData(goodMatches, missingCount, extraCount);
-//   }
-// }
-    
-//     // Update applicant with AI analysis (after calculating percentage)
-//     setApplicant(prev => {
-//       if (!prev) return prev;
-//       return {
-//         ...prev,
-//         aiAnalysis: result.data
-//       };
-//     });
-
-//     // 🔥 COMMENT OUT OR REMOVE this line that uses AI's percentage
-//     // if (result.data?.skillMatch?.matchPercentage) {
-//     //   setMatchPercentage(result.data.skillMatch.matchPercentage);
-//     // }
-
-//     return result.data;
-    
-//   } catch (error) {
-//     console.error('[AI] Error:', error);
-//     setAiError(error instanceof Error ? error.message : 'Failed to analyze with AI');
-//     return null;
-//   } finally {
-//     setAiLoading(false);
-//   }
-// };
-
 
 const fetchAIAnalysis = async (applicantId: string, jobId: number) => {
   try {
@@ -335,7 +252,7 @@ const fetchAIAnalysis = async (applicantId: string, jobId: number) => {
     }
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/applications/${applicantId}/analyze`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/applications/${applicantId}/analyze`,
       {
         method: 'POST',
         headers: {

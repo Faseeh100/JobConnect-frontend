@@ -79,7 +79,7 @@ export default function AdminSettingsPage() {
       }
 
       // Fetch current admin data
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/users/me`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/me`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -187,7 +187,7 @@ export default function AdminSettingsPage() {
     try {
       const token = localStorage.getItem('token');
       
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/users/me`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/me`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -243,7 +243,7 @@ export default function AdminSettingsPage() {
       
       // Note: You need to create a password update endpoint in your backend
       // For now, we'll simulate the update
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/users/me`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/me`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

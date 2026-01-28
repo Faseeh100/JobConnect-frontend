@@ -76,7 +76,7 @@ export default function AdminApplicantsPage() {
       }
 
       // Fetch applicants
-      const applicantsRes = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/applications`, {
+      const applicantsRes = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/applications`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
@@ -103,7 +103,7 @@ export default function AdminApplicantsPage() {
       }
 
       // Fetch jobs
-      const jobsRes = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/jobs`, {
+      const jobsRes = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/jobs`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
@@ -131,7 +131,7 @@ export default function AdminApplicantsPage() {
       setUpdatingStatus(applicantId);
       const token = localStorage.getItem('token');
       
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/applications/${applicantId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/applications/${applicantId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

@@ -52,7 +52,7 @@ export default function AdminPage() {
       
       // Fetch applicants for stats
       const applicantsRes = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/applications`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/applications`,
         {
           headers: {
             'Authorization': `Bearer ${token}`
@@ -62,7 +62,7 @@ export default function AdminPage() {
       
       // Fetch jobs for stats
       const jobsRes = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/jobs`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/jobs`,
         {
           headers: {
             'Authorization': `Bearer ${token}`

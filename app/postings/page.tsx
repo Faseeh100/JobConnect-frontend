@@ -81,7 +81,7 @@ export default function PostingsPage() {
       
       const token = localStorage.getItem('token');
       
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/jobs`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/jobs`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
